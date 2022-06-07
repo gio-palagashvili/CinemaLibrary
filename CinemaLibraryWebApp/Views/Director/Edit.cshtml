@@ -1,0 +1,64 @@
+﻿@model Director
+
+<style>
+    .main {
+        display: flex;
+        width: 30%;
+    }
+    .child{
+        border:1px solid black;
+        padding:2%;
+        width:260px !important;
+        margin-right: 2%;
+        background-color:#f0f0ea;
+        margin-bottom : 3%;
+    }
+    
+     img{
+        width:200px;
+        margin-bottom:2%;
+    }
+    h4{
+    margin-right: 3px
+    }
+    .textClass{
+    font-size: 14px;
+    }
+    form{
+        margin-left: 5%;
+    }
+    .bs{
+    display: inline;
+    }
+    span{
+    width: fit-content;
+    }
+   .sd{
+    position:absolute;
+    margin-left: 2%;
+    }
+</style>
+
+        <div class="main">
+            <div class="child">
+                <img src="@Model.Portrait" style="width:200px" alt=""/>
+            </div>
+            <form asp-controller="Director" asp-action="Edit">
+                <h3>Name</h3>
+                <div style="display: flex;">
+                     <input value="@Model.Name" asp-for="Name" style="margin-right: 2%">
+                     <input value="@Model.LastName" asp-for="LastName">
+                </div>
+                <h3>BirthDate</h3>
+                <input value="2013-01-08" asp-for="BirthDate">
+                <h3>Rating</h3>
+                
+                <input value="@Model.Rating" asp-for="Rating">
+                <h3>Portrait</h3>
+                
+                <input value="@Model.Portrait" asp-for="Portrait">
+                
+                <input type="submit" class="sd">
+            </form>
+        </div>
+

@@ -1,0 +1,160 @@
+﻿@model IEnumerable<Director>
+
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main {
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    flex-wrap:wrap;
+}
+.child{
+    border:1px solid black;
+    padding:2%;
+    width:260px !important;
+    background-color:#f0f0ea;
+    margin-bottom : 3%;
+    margin-right:auto;
+}
+img{
+    width:200px;
+    margin-bottom:2%;
+}
+h4{
+    text-transform: capitalize;
+    margin-top:2%;
+}
+span{
+    margin-bottom : 100%;
+}
+.sidebar{
+    padding:10px;
+    background-color: #F0F0EA;
+    width: 15%;
+    top: 9%;
+    position: absolute;
+    left: 85%;
+    border-radius: 2%;
+}
+#genre{
+width: 100%;
+margin-bottom:2%;
+}
+#date{
+width:100%;
+}
+#imdb{
+width:100%;
+}
+#myRange{
+width: 100%;
+}
+label{
+margin-top: 2%;
+}
+.mainButton{
+width: 100%;
+margin-bottom: 2%;
+border: none;
+background-color: #007bff;
+color: #fff;
+font-family: "Segoe UI";
+font-weight: 400;
+border-radius: 2px;
+margin-top: 2%;
+}
+.secondButton{
+width: 100%;
+margin-bottom: 2%;
+border: none;
+background-color: #484e52;
+color: #fff;
+font-family: "Segoe UI";
+font-weight: 400;
+border-radius: 2px;
+}
+.delete{
+color: #fff;
+font-family: "Segoe UI";
+font-weight: 400;
+border-radius: 2px;
+border: none;
+padding: 2px;
+background-color: #dc3545;
+width:50%;
+}
+.viewmore{
+color: #fff;
+font-family: "Segoe UI";
+font-weight: 400;
+border-radius: 2px;
+border: none;
+padding: 2px;
+background-color: #212425;
+width:40%;
+}
+.delete:hover{
+background-color: #bf2e3c;
+}
+.viewmore:hover{
+background-color: #101112;
+}
+.edit{
+color: #fff;
+font-family: "Segoe UI";
+font-weight: 400;
+border-radius: 2px;
+border: none;
+padding: 2px;
+background-color: #007bff;
+width:92%;
+margin-top: 2%;
+}
+.edit:hover{
+    background-color: #006ce0;
+}
+.footer{
+    display: none;
+}
+</style>
+<div class="main">
+    @foreach (var director in Model)
+    {
+        <div class="child">
+            <img src="@director.Portrait" alt="@director.LastName"/>
+            <h4>@director.LastName @director.Name</h4>
+            <span>Imdb : @director.Rating</span><br/>
+            <span>Birthday : @director.BirthDate.Year/@director.BirthDate.Month/@director.BirthDate.Day</span>
+               <div class="buttons"><br>
+                            <input type="button" value="More" onclick="window.location.href='director/details/@director.Id';" class="viewmore"/>
+                            <input type="submit" value="Delete" class="delete" onclick="window.location.href='director/delete/@director.Id';">
+                        </div>
+                        <input type="button" value="Edit" onclick="window.location.href='director/edit/@director.Id';" class="edit"/>
+        </div>
+    }
+</div>
+
+<div class="sidebar">
+    <form method="get" asp-action="index" asp-controller="Director">
+        <label for="imdb">Choose rating : </label>
+        <select id="imdb" name="imdb">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select><br />
+        <input type="submit" class="mainButton"/>
+        <input type="button" class="secondButton" value="Clear" onclick="window.location.href='/Director';"/>
+
+    </form>
+</div>

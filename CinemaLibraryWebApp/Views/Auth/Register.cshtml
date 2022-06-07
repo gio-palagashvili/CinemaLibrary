@@ -1,0 +1,66 @@
+﻿<style>
+.form-main{
+display: flex;
+width: 50vw;
+justify-content: center;
+}
+form:nth-child(1){
+width: 80%;
+}
+input[name="mail"]{
+padding: 4px;
+margin-bottom: 2%;
+display: block;
+width: 100%;
+}
+#password{
+padding: 4px;
+margin-bottom: 2%;
+width: 100%;
+display: block;
+}
+#rPassword{
+padding: 4px;
+margin-bottom: 2%;
+width: 100%;
+display: block;
+}
+#mainB{
+width: 100%;
+color: #fff;
+font-family: "Segoe UI",serif;
+font-weight: 400;
+border-radius: 2px;
+border: none;
+padding: 4px;
+background-color: #007bff;
+}
+#mainB:hover{
+    background-color: #006ce0;
+}
+h1{
+margin-left: 8.5%;
+margin-bottom: 2%;
+}
+</style>
+<h1>Register</h1>
+    <span id="error"></span>
+<div class="form-main">
+    <form method="post" asp-controller="Auth" asp-action="Register">
+        <input type="text" placeholder="Mail" name="mail" required/>
+        <input type="password" placeholder="Password" name="password" id="password" required onkeyup="checkPass()">
+        <input type="password" placeholder="Repeat Password" name="rPassword" id="rPassword" required onkeyup="checkPass()">
+        <button type="submit" id="mainB">Register</button>
+        <a href="../Auth">Login</a>
+    </form>
+</div>
+
+<script>
+const checkPass = () =>{
+    if (document.getElementById("rPassword").value !== document.getElementById("password").value){
+        document.getElementById("error").innerHTML = "Passwords don't match";
+    }else{
+    document.getElementById("error").innerHTML = "";
+    }
+}
+</script>

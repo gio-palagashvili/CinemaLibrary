@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Net.Http
+@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,45 +9,95 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CinemaLibraryWebApp</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Actor" asp-action="">Actors</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+<style>
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      margin-top: 1.6%;
+      cursor:pointer;
 
-    <footer class="border-top footer text-muted">
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 12px 16px;
+      z-index: 1;
+      cursor:pointer;
+    }
+    .dropdown:hover .dropdown-content {
+      display: block;
+      cursor:pointer;
+    }
+    #login{
+    margin-left: 2%;
+    }
+    #login:hover{
+        cursor:pointer;
+        text-decoration: underline;
+        color: purple;
+    }
+</style>
+<body>
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container">
-            &copy; 2022 - CinemaLibraryWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CinemaLibraryWebApp</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    <div class="dropdown">
+                        <span>People</span>
+                        <div class="dropdown-content">
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Actor" asp-action="">Actors</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Director"
+                                   asp-action="">Directors</a>
+                            </li>
+                        </div>
+                    </div>
+                    <li style="margin-top: 0.1%">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Movie" asp-action="">Movies</a>
+                    </li>
+                </ul>
+                <form method="get" asp-action="SearchMovie" asp-controller="Search">
+                    <input name="text" value=@ViewData["Message"]>
+                    <input type="submit">
+                </form>
+                <a id="login" href="../Auth">Login/Register</a>
+                <a id="logout" href="../Auth/LogOut" style="display:none;">LogOut</a>
+                
+            </div>
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
+
+<footer class="border-top footer text-muted">
+    <div class="container">
+        &copy; 2022 - CinemaLibraryWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

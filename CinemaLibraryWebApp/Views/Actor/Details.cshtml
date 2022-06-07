@@ -1,0 +1,100 @@
+﻿@model Actor
+<style>
+.main {
+    display: flex;
+    width: 90%;
+}
+.child{
+    border:1px solid black;
+    padding:2%;
+    width:260px !important;
+    margin-right: 2%;
+    background-color:#f0f0ea;
+    margin-bottom : 3%;
+}
+    
+ img{
+    width:200px;
+    margin-bottom:2%;
+}
+h4{
+margin-right: 3px
+}
+.textClass{
+font-size: 14px;
+}
+
+.movies {
+    display: flex;
+    width: 80%;
+    flex-wrap:wrap;
+
+}
+.movie{
+    border:1px solid black;
+    padding:2%;
+    width:260px !important;
+    background-color:#f0f0ea;
+    margin-bottom : 3%;
+    margin-right:5%;
+}
+img{
+    width:200px;
+    margin-bottom:2%;
+}
+h4{
+    text-transform: capitalize;
+    margin-top:2%;
+}
+span{
+    margin-bottom : 100%;
+}
+input{
+    margin-top:2%;
+    padding : 2px;
+}
+</style>
+
+@if (Model != null)
+{
+    var actor = Model;
+    
+    <h1>@actor.Name @actor.LastName</h1>
+    <div class="main">
+        <div class="child">
+            <img src="@actor.Portrait" style="width:200px" alt=""/>
+        </div>
+    </div>
+    <table>
+        <tr style="height: 20%">
+            <th>
+                <h4>Born in : @actor.BirthDate.Year/@actor.BirthDate.Month/@actor.BirthDate.Day </h4>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <h4>Rating : @actor.Rating</h4>
+            </th>
+        </tr>
+    </table>
+<h1>Movies</h1>
+
+    if(actor.Movies.Count > 0){
+<div class="movies">
+  @foreach (var movie in actor.Movies)
+    {
+        <div class="movie" style="height:90%;">
+            <img src="@movie.Poster" alt="@movie.Name"/>
+            <h4>@movie.Name </h4>
+            <span>IMDB : @movie.IMDB | RT : @movie.RottenTomatoes%</span><br/>
+            <span>Release Date : @movie.ReleaseDate.Year/@movie.ReleaseDate.Month/@movie.ReleaseDate.Day</span>
+           <input type="button" value="View More" onclick="window.location.href='../../Movie/details/@movie.Id';" />
+        </div>
+    }
+</div>  
+}
+}
+else
+{
+    <h1>No actor found</h1>
+}

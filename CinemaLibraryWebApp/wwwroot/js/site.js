@@ -1,4 +1,9 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const slider = document.getElementById("myRange");
+const output = document.getElementById("demo");
+output.innerHTML = slider.value; 
 
-// Write your JavaScript code.
+slider.oninput = () => {
+    output.innerHTML = slider.value;
+    document.cookie = `value=${slider.value}`;
+    document.getElementById("sliderInputValue").setAttribute("value", slider.value);
+}

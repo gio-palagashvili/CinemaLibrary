@@ -1,0 +1,71 @@
+﻿@model Movie
+<style>
+.main {
+    display: flex;
+    width: 90%;
+}
+.child{
+    padding:2%;
+    width:260px !important;
+    margin-right: 2%;
+    margin-bottom : 3%;
+}
+    
+ img{
+    width:200px;
+    margin-bottom:2%;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  height: 20%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 5px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+textarea{
+width: 400px;
+height: 70px;
+}
+</style>
+
+
+    <div class="main">
+        <div class="child">
+            <img src="@Model.Poster" style="width:200px" alt=""/>
+        </div>
+         <div class="main">
+              
+                <form asp-controller="Movie" asp-action="Edit">
+                    <h3>Name</h3>
+                    <input value="@Model.Name" asp-for="Name" style="margin-right: 2%">
+                    
+                    <h3>BirthDate </h3>
+                    <input value="2013-01-08" asp-for="ReleaseDate">
+
+                    <h3>Rating</h3>
+                    <input value="@Model.IMDB" asp-for="IMDB">
+
+                    <h3>RT %</h3>
+                    <input value="@Model.RottenTomatoes" asp-for="RottenTomatoes">
+
+                    <h3>Poster</h3>
+                    <input value="@Model.Poster" asp-for="Poster">
+                    
+                    <h3>Description</h3>
+                    <textarea asp-for="Description">@Model.Description</textarea>
+                    <br><br>
+                    <input type="submit" class="sd">
+                </form>
+            </div>
+    </div>
+
+

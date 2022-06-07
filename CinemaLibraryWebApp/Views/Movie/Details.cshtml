@@ -1,0 +1,74 @@
+﻿@model Movie
+<style>
+.main {
+    display: flex;
+    width: 90%;
+}
+.child{
+    border:1px solid black;
+    padding:2%;
+    width:260px !important;
+    margin-right: 2%;
+    background-color:#f0f0ea;
+    margin-bottom : 3%;
+}
+    
+ img{
+    width:200px;
+    margin-bottom:2%;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+  height: 20%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 5px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
+@if (Model != null)
+{
+    Movie movie = Model;
+    <h1>@movie.Name</h1>
+    <div class="main">
+
+        <div class="child">
+            <img src="@movie.Poster" style="width:200px" alt=""/>
+        </div>
+        <table>
+            <tr style="height: 20%">
+                <th>Genre</th>
+                <th>Director</th>
+                <th>Release Date</th>
+                <th>IMDB</th>
+                <th style="width: 15%">Rotten Tomatoes</th>
+            </tr>
+            <tr>
+                <td>@movie.Genre.Name</td>
+                <td><a href="../../director/details/@movie.Director.Id">@movie.Director.LastName @movie.Director.Name</a></td>
+                <td>@movie.ReleaseDate.Year/@movie.ReleaseDate.Month/@movie.ReleaseDate.Day</td>
+                <td>@movie.IMDB</td>
+                <td>@movie.RottenTomatoes</td>
+            </tr>
+        </table>
+    
+    </div>
+    <h3>Description :</h3>
+    <p>
+        @movie.Description
+    </p>
+}
+else
+{
+<h1>No movie Found</h1>
+}
+
