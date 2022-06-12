@@ -1,5 +1,4 @@
-﻿@model Movie
-<style>
+﻿<style>
 .main {
     display: flex;
     width: 90%;
@@ -36,36 +35,52 @@ width: 400px;
 height: 70px;
 }
 </style>
-
-
-    <div class="main">
-        <div class="child">
-            <img src="@Model.Poster" style="width:200px" alt=""/>
+    
+<div class="main">
+      <div class="child">
+            <img src="@ViewBag.Movie.Poster" style="width:200px" alt=""/>
         </div>
          <div class="main">
-              
-                <form asp-controller="Movie" asp-action="Edit">
-                    <h3>Name</h3>
-                    <input value="@Model.Name" asp-for="Name" style="margin-right: 2%">
-                    
-                    <h3>BirthDate </h3>
-                    <input value="2013-01-08" asp-for="ReleaseDate">
+             <form asp-controller="Movie" asp-action="Edit">
+                 <input type="text" disabled name="Id" value="@ViewBag.Movie.Id">
+                 
+                 <h3>Name</h3>
+                 <input value="@ViewBag.Movie.Name" name="Name" style="margin-right: 2%">
 
-                    <h3>Rating</h3>
-                    <input value="@Model.IMDB" asp-for="IMDB">
+                 <h3>Release date </h3>
+                 <input value="@ViewBag.Movie.ReleaseDate" name="ReleaseDate">
 
-                    <h3>RT %</h3>
-                    <input value="@Model.RottenTomatoes" asp-for="RottenTomatoes">
+                 <h3>Rating</h3>
+                 <input value="@ViewBag.Movie.IMDB" name="IMDB">
 
-                    <h3>Poster</h3>
-                    <input value="@Model.Poster" asp-for="Poster">
-                    
-                    <h3>Description</h3>
-                    <textarea asp-for="Description">@Model.Description</textarea>
-                    <br><br>
-                    <input type="submit" class="sd">
-                </form>
-            </div>
-    </div>
+                 <h3>RT %</h3>
+                 <input value="@ViewBag.Movie.RottenTomatoes" name="RottenTomatoes">
+
+                 <h3>Poster</h3>
+                 <input value="@ViewBag.Movie.Poster" name="Poster">
+
+                 <h3>Genre</h3>
+                 <select name="Genre">
+                     @foreach (var genre in ViewBag.Genres)
+                     {
+                         if (ViewBag.Movie.Genre.Name == genre.Name)
+                         {
+                             <option value="@genre.Id" selected>@genre.Name</option>
+                         }
+                         else
+                         {
+                             <option value="@genre.Id">@genre.Name</option>
+                         }
+                     }
+                 </select>
+
+                 <h3>Description</h3>
+                 <textarea name="Description">@ViewBag.Movie.Description</textarea>
+                 <br><br>
+                 <input type="submit" class="sd">
+             </form>
+        </div>
+        
+</div>
 
 

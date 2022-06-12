@@ -68,6 +68,7 @@ namespace CinemaLibraryWebApp.Controllers
             if (user != null)
             {
                 HttpContext.Session.SetInt32("userId",user.Id);
+                HttpContext.Session.SetString("userRole", user.Role);
                 return RedirectToAction("index", "Movie");
             }
 

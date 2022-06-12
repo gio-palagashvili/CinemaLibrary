@@ -48,23 +48,24 @@ namespace CinemaLibraryWebApp.Controllers
             var user = _db.Users.FirstOrDefault(x => x.Id == HttpContext.Session.GetInt32("userId"));
             
             ViewBag.Movies = objActorList;
+            
             if (user != null) ViewBag.UserRole = user.Role;
 
             return View(ViewBag);
         }
         public IActionResult Details(int id)
         {
-            Movie movie;
-            using (_db)
-            {
-                movie = _db.Movies
+            Movie movie = _db.Movies
                     .Include(e => e.Actors)
                     .Include(e => e.Director)
                     .Include(e => e.Genre).FirstOrDefault(e => e.Id == id);
-            }
-            return View(movie);
-        }
 
+            ViewBag.Movie = movie;
+            ViewBag.C = _db.Comments.First();
+
+            return View(ViewBag);
+        }
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             Movie movie = _db.Movies.Find(id);
@@ -74,20 +75,30 @@ namespace CinemaLibraryWebApp.Controllers
             
             return RedirectToAction("Index");
         }
-
         public IActionResult Edit(int id)
         {
-            var movie = _db.Movies.Include(e => e.Genre).Include(e => e.Director).Where(x => x.Id == id).FirstOrDefault();
 
-            return View(movie);
+            if (HttpContext.Session.GetString("userRole") != "admin") return RedirectToAction("Index", "Movie");
+
+            var movie = _db.Movies.Include(e => e.Genre).Include(e => e.Director).FirstOrDefault(x => x.Id == id);
+            ViewBag.Movie = movie;
+            ViewBag.Genres = _db.Genres;
+            
+            return View(ViewBag);
         }
         [HttpPost]
-        public IActionResult Edit(Movie movie)
+        public IActionResult Edit(int Id,string Name, DateTime ReleaseDate, float IMDB, 
+            float RottenTomatoes, string Poster, int Genre, string Description)
         {
-            _db.Update(movie);
+            Genre genre = _db.Genres.FirstOrDefault(x => x.Id == Genre);
+
+            var movie = new Movie { Id=Id,Description = Description,Poster = Poster,ReleaseDate = ReleaseDate,Name = Name,
+                IMDB = IMDB,RottenTomatoes = RottenTomatoes, Genre = genre};
+            
+            _db.Movies.Update(movie);
             _db.SaveChanges();
             
-            return View(movie);
+            return RedirectToAction("Edit");
         }
     }
 }

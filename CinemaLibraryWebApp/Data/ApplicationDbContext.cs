@@ -15,6 +15,8 @@ namespace CinemaLibraryWebApp.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        
         public User User { get; set; }
     }
 }

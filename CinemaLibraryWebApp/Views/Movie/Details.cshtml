@@ -1,5 +1,4 @@
-﻿@model Movie
-<style>
+﻿<style>
 .main {
     display: flex;
     width: 90%;
@@ -37,7 +36,7 @@ tr:nth-child(even) {
 
 @if (Model != null)
 {
-    Movie movie = Model;
+    Movie movie = ViewBag.Movie;
     <h1>@movie.Name</h1>
     <div class="main">
 
