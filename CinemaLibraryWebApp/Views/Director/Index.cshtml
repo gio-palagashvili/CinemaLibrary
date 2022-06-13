@@ -1,6 +1,4 @@
-﻿@model IEnumerable<Director>
-
-<style>
+﻿<style>
 *{
     margin: 0;
     padding: 0;
@@ -121,19 +119,33 @@ margin-top: 2%;
     display: none;
 }
 </style>
+@if (ViewBag.UserRole != null)
+{
+    <script>
+        document.getElementById("login").innerHTML = "Log Out";
+        document.getElementById("login").href = "../Auth/LogOut";
+    </script>
+}
 <div class="main">
-    @foreach (var director in Model)
+    @foreach (var director in ViewBag.directors)
     {
         <div class="child">
             <img src="@director.Portrait" alt="@director.LastName"/>
             <h4>@director.LastName @director.Name</h4>
             <span>Imdb : @director.Rating</span><br/>
             <span>Birthday : @director.BirthDate.Year/@director.BirthDate.Month/@director.BirthDate.Day</span>
-               <div class="buttons"><br>
-                            <input type="button" value="More" onclick="window.location.href='director/details/@director.Id';" class="viewmore"/>
-                            <input type="submit" value="Delete" class="delete" onclick="window.location.href='director/delete/@director.Id';">
-                        </div>
-                        <input type="button" value="Edit" onclick="window.location.href='director/edit/@director.Id';" class="edit"/>
+            <div class="buttons">
+                <br>
+                <input type="button" value="More" onclick="window.location.href='director/details/@director.Id';" class="viewmore"/>
+                @if (ViewBag.userRole == "admin")
+                {
+                    <input type="submit" value="Delete" class="delete" onclick="window.location.href='director/delete/@director.Id';">
+                }
+            </div>
+            @if (ViewBag.userRole == "admin")
+            {
+                <input type="button" value="Edit" onclick="window.location.href='director/edit/@director.Id';" class="edit"/>
+            }
         </div>
     }
 </div>
@@ -152,7 +164,7 @@ margin-top: 2%;
             <option value="8">8</option>
             <option value="9">9</option>
             <option value="10">10</option>
-        </select><br />
+        </select><br/>
         <input type="submit" class="mainButton"/>
         <input type="button" class="secondButton" value="Clear" onclick="window.location.href='/Director';"/>
 

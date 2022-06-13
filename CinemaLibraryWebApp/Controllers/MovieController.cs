@@ -62,7 +62,8 @@ namespace CinemaLibraryWebApp.Controllers
 
             ViewBag.Movie = movie;
             ViewBag.C = _db.Comments.First();
-
+            ViewBag.UserRole = HttpContext.Session.GetString("userRole");
+            
             return View(ViewBag);
         }
         [HttpPost]

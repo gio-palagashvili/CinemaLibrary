@@ -1,5 +1,4 @@
-﻿@model Director
-
+﻿
 <style>
     .main {
         display: flex;
@@ -38,27 +37,41 @@
     margin-left: 2%;
     }
 </style>
+@if (ViewBag.UserRole != null)
+{
+    <script>
+        document.getElementById("login").innerHTML = "Log Out";
+        document.getElementById("login").href = "../../Auth/LogOut";
+    </script>
+}
+else
+{
+    <script>
+        document.getElementById("login").href = "../../Auth/";
+    </script>
+}
 
-        <div class="main">
-            <div class="child">
-                <img src="@Model.Portrait" style="width:200px" alt=""/>
-            </div>
-            <form asp-controller="Director" asp-action="Edit">
-                <h3>Name</h3>
-                <div style="display: flex;">
-                     <input value="@Model.Name" asp-for="Name" style="margin-right: 2%">
-                     <input value="@Model.LastName" asp-for="LastName">
-                </div>
-                <h3>BirthDate</h3>
-                <input value="2013-01-08" asp-for="BirthDate">
-                <h3>Rating</h3>
-                
-                <input value="@Model.Rating" asp-for="Rating">
-                <h3>Portrait</h3>
-                
-                <input value="@Model.Portrait" asp-for="Portrait">
-                
-                <input type="submit" class="sd">
-            </form>
+<div class="main">
+    <div class="child">
+        <img src="@ViewBag.director.Portrait" style="width:200px" alt=""/>
+    </div>
+    <form asp-controller="Director" asp-action="Edit">
+        <input type="hidden" value="@ViewBag.director.Id" name="Id">
+        <h3>Name</h3>
+        <div style="display: flex;">
+            <input value="@ViewBag.director.Name" name="Name" style="margin-right: 2%">
+            <input value="@ViewBag.director.LastName" name="LastName">
         </div>
+        <h3>BirthDate</h3>
+        <input value="2013-01-08" name="BirthDate">
+        <h3>Rating</h3>
+
+        <input value="@ViewBag.director.Rating" name="Rating">
+        <h3>Portrait</h3>
+
+        <input value="@ViewBag.director.Portrait" name="Portrait">
+
+        <input type="submit" class="sd">
+    </form>
+</div>
 

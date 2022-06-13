@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Actor>
+﻿
 <style>
 *{
     margin: 0;
@@ -65,7 +65,7 @@ margin-bottom: 2%;
 border: none;
 background-color: #007bff;
 color: #fff;
-font-family: "Segoe UI";
+font-family: "Segoe UI",serif;
 font-weight: 400;
 border-radius: 2px;
 margin-top: 2%;
@@ -76,13 +76,13 @@ margin-bottom: 2%;
 border: none;
 background-color: #484e52;
 color: #fff;
-font-family: "Segoe UI";
+font-family: "Segoe UI",serif;
 font-weight: 400;
 border-radius: 2px;
 }
 .delete{
 color: #fff;
-font-family: "Segoe UI";
+font-family: "Segoe UI",serif;
 font-weight: 400;
 border-radius: 2px;
 border: none;
@@ -92,7 +92,7 @@ width:50%;
 }
 .viewmore{
 color: #fff;
-font-family: "Segoe UI";
+font-family: "Segoe UI",serif;
 font-weight: 400;
 border-radius: 2px;
 border: none;
@@ -108,7 +108,7 @@ background-color: #101112;
 }
 .edit{
 color: #fff;
-font-family: "Segoe UI";
+font-family: "Segoe UI",serif;
 font-weight: 400;
 border-radius: 2px;
 border: none;
@@ -121,8 +121,16 @@ margin-top: 2%;
     background-color: #006ce0;
 }
 </style>
+@if (ViewBag.UserRole != null)
+{
+    <script>
+        document.getElementById("login").innerHTML = "Log Out";
+        document.getElementById("login").href = "../Auth/LogOut";
+    </script>
+}
+
 <div class="main">
-    @foreach (var actor in Model)
+    @foreach (var actor in ViewBag.actors)
     {
         <div class="child">
             <img src="@actor.Portrait" alt="@actor.LastName"/>
@@ -132,10 +140,15 @@ margin-top: 2%;
             
             <div class="buttons"><br>
                 <input type="button" value="More" onclick="window.location.href='Actor/details/@actor.Id';" class="viewmore"/>
-                <button type="button" value="Delete" class="delete" onclick="window.location.href='Actor/delete/@actor.Id';">Delete</button>
+                @if (ViewBag.userRole == "admin")
+                {
+                    <button type="button" value="Delete" class="delete" onclick="window.location.href='Actor/delete/@actor.Id';">Delete</button>
+                }
             </div>
-            <input type="button" value="Edit" onclick="window.location.href='Actor/edit/@actor.Id';" class="edit"/>
-            
+             @if (ViewBag.userRole == "admin")
+             {
+                <input type="button" value="Edit" onclick="window.location.href='Actor/edit/@actor.Id';" class="edit"/>
+             }
         </div>
     }
 </div>

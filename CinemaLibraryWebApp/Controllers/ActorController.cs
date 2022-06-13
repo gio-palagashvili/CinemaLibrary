@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using CinemaLibraryWebApp.Data;
 using CinemaLibraryWebApp.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,19 +25,25 @@ namespace CinemaLibraryWebApp.Controllers
             {
                 objActorList = objActorList.Where(x => x.Rating >= imdb);
             }
+
+            ViewBag.actors = objActorList;
+            ViewBag.userRole = HttpContext.Session.GetString("userRole");
             
-            return View(objActorList);
+            return View(ViewBag);
         }
         public IActionResult Details(int id)
         {
             Actor actor;
             using (_db)
             {
-                actor = _db.Actors.Include(e => e.Movies).Where(e => e.Id == id).FirstOrDefault();
+                actor = _db.Actors.Include(e => e.Movies).FirstOrDefault(e => e.Id == id);
             }
-            return View(actor);
-        }
 
+            ViewBag.actor = actor;
+            ViewBag.UserRole = HttpContext.Session.GetString("userRole");
+                
+            return View(ViewBag);
+        }
 
         public IActionResult Delete(int id)
         {

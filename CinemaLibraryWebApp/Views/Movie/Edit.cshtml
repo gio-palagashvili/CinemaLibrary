@@ -9,8 +9,7 @@
     margin-right: 2%;
     margin-bottom : 3%;
 }
-    
- img{
+img{
     width:200px;
     margin-bottom:2%;
 }
@@ -20,13 +19,11 @@ table {
   width: 70%;
   height: 20%;
 }
-
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 5px;
 }
-
 tr:nth-child(even) {
   background-color: #dddddd;
 }
@@ -35,7 +32,13 @@ width: 400px;
 height: 70px;
 }
 </style>
-    
+    @if (ViewBag.UserRole == "admin")
+    {
+        <script>
+            document.getElementById("login").innerHTML = "Log Out";
+            document.getElementById("login").href = "/Auth/LogOut";
+        </script>
+    }
 <div class="main">
       <div class="child">
             <img src="@ViewBag.Movie.Poster" style="width:200px" alt=""/>

@@ -1,6 +1,4 @@
-﻿@model CinemaLibraryWebApp.Data.DirectorMovie
-
-<style>
+﻿<style>
 .main {
     display: flex;
     width: 90%;
@@ -54,10 +52,24 @@ input{
     padding : 2px;
 }
 </style>
-
-@if (Model.Director != null)
+@if (ViewBag.UserRole != null)
 {
-    Director director = Model.Director;
+    <script>
+        document.getElementById("login").innerHTML = "Log Out";
+        document.getElementById("login").href = "../Auth/LogOut";
+    </script>
+}
+else
+{
+    <script>
+        document.getElementById("login").href = "../../Auth/";
+    </script>
+}
+
+@if (ViewBag.director != null)
+{
+    Director director = ViewBag.director;
+    
     <h1>@director.Name @director.LastName</h1>
     <div class="main">
         <div class="child">
@@ -77,7 +89,7 @@ input{
         </tr>
     </table>
     
-    @if (Model.movies.Any())
+    @if (ViewBag.movies != null)
     {
         <h1>Movies : </h1>
         <div class="movies">

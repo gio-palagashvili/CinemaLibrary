@@ -78,6 +78,8 @@ namespace CinemaLibraryWebApp.Controllers
         public IActionResult LogOut()
         {
             if (HttpContext.Session.GetInt32("userId") != null) HttpContext.Session.Remove("userId");
+            if (HttpContext.Session.GetInt32("userRole") != null) HttpContext.Session.Remove("userRole");
+            
             return RedirectToAction("index", "Auth");
         }
     }

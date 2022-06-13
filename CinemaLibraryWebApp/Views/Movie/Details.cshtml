@@ -33,7 +33,20 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 </style>
+@if (ViewBag.UserRole != null)
+{
+    <script>
+        document.getElementById("login").innerHTML = "Log Out";
+        document.getElementById("login").href = "/Auth/LogOut";
+    </script>
+}
+else
+{
+    <script>
+        document.getElementById("login").style.display = "none";
+    </script>
 
+}
 @if (Model != null)
 {
     Movie movie = ViewBag.Movie;

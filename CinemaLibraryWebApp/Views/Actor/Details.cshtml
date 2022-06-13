@@ -1,5 +1,4 @@
-﻿@model Actor
-<style>
+﻿<style>
 .main {
     display: flex;
     width: 90%;
@@ -54,11 +53,23 @@ input{
     padding : 2px;
 }
 </style>
-
-@if (Model != null)
+@if (ViewBag.UserRole != null)
 {
-    var actor = Model;
-    
+    <script>
+        document.getElementById("login").innerHTML = "Log Out";
+        document.getElementById("login").href = "../../../Auth/LogOut";
+    </script>
+}
+else
+{
+    <script>
+        document.getElementById("login").href = "../../../Auth/";
+    </script>
+}
+
+@if (ViewBag.actor != null)
+{
+    var actor = ViewBag.actor;
     <h1>@actor.Name @actor.LastName</h1>
     <div class="main">
         <div class="child">
