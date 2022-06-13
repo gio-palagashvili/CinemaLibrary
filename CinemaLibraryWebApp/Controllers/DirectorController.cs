@@ -51,7 +51,6 @@ namespace CinemaLibraryWebApp.Controllers
 
             return RedirectToAction("index");
         }
-
         public IActionResult Edit(int id)
         {
             Director dir = _db.Directors.Find(id);

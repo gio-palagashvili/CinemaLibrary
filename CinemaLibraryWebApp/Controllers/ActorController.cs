@@ -47,6 +47,7 @@ namespace CinemaLibraryWebApp.Controllers
 
         public IActionResult Delete(int id)
         {
+            if (HttpContext.Session.GetString("userRole") != "admin") RedirectToAction("Index");
             Actor actor = _db.Actors.Find(id);
             if (actor == null) return NotFound($"No Actor was found with id of {id}");
             _db.Actors.Remove(actor);
@@ -56,6 +57,7 @@ namespace CinemaLibraryWebApp.Controllers
         }
         public IActionResult Edit(int id)
         {
+            if (HttpContext.Session.GetString("userRole") != "admin") RedirectToAction("Index");
             Actor actor = _db.Actors.Find(id);
             if (actor == null) return NotFound($"No Actor was found with id of {id}");
             

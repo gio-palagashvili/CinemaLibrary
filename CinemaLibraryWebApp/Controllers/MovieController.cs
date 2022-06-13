@@ -13,7 +13,6 @@ namespace CinemaLibraryWebApp.Controllers
     public class MovieController : Controller
     {
         private readonly ApplicationDbContext _db;
-
         public MovieController(ApplicationDbContext db)
         {
             _db = db;
@@ -60,18 +59,20 @@ namespace CinemaLibraryWebApp.Controllers
                     .Include(e => e.Director)
                     .Include(e => e.Genre).FirstOrDefault(e => e.Id == id);
 
-            ViewBag.Movie = movie;
-            ViewBag.C = _db.Comments.First();
-            ViewBag.UserRole = HttpContext.Session.GetString("userRole");
+            ViewBag.movie = movie;
+            ViewBag.comments = _db.Comments.Include(x => x.User).Where(x => x.Movie.Id == id).OrderByDescending(x=> x.CommentDate);
+            ViewBag.userRole = HttpContext.Session.GetString("userRole");
+            ViewBag.userId = HttpContext.Session.GetString("userId");
             
             return View(ViewBag);
         }
+
         [HttpPost]
         public IActionResult Delete(int id)
         {
             Movie movie = _db.Movies.Find(id);
             if (movie == null) return NotFound("error");
-            _db.Remove(movie);
+            _db.Movies.Remove(movie);
             _db.SaveChanges();
             
             return RedirectToAction("Index");
