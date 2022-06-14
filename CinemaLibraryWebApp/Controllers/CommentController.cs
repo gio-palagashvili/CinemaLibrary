@@ -26,7 +26,7 @@ namespace CinemaLibraryWebApp.Controllers
             _db.Comments.Add(comment);
             _db.SaveChanges();
             
-            return Redirect(url);
+            return Redirect("https://localhost:5001/movie/details/"+comment.Movie.Id);
         }
         
         public IActionResult Delete(int id,int movieId)

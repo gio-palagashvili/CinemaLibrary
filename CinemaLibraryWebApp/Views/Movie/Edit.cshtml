@@ -32,13 +32,14 @@ width: 400px;
 height: 70px;
 }
 </style>
-    @if (ViewBag.UserRole == "admin")
+    @if (ViewBag.userId != null)
     {
         <script>
             document.getElementById("login").innerHTML = "Log Out";
             document.getElementById("login").href = "/Auth/LogOut";
         </script>
     }
+
 <div class="main">
       <div class="child">
             <img src="@ViewBag.Movie.Poster" style="width:200px" alt=""/>

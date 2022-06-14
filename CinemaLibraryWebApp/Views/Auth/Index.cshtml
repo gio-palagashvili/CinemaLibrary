@@ -42,6 +42,7 @@ margin-bottom: 2%;
     <form method="post" asp-controller="Auth" asp-action="Login">
         <input type="text" placeholder="Mail" name="mail"/>
         <input type="password" placeholder="Password" name="password">
+        <input type="hidden" value="@ViewBag.url" name="url">
         <button type="submit" id="mainB">Log in</button>
         <a href="../Auth/Register">Register</a>
     </form>

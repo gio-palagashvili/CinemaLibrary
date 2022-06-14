@@ -63,7 +63,7 @@ namespace CinemaLibraryWebApp.Controllers
             ViewBag.comments = _db.Comments.Include(x => x.User).Where(x => x.Movie.Id == id).OrderByDescending(x=> x.CommentDate);
             ViewBag.userRole = HttpContext.Session.GetString("userRole");
             ViewBag.userId = HttpContext.Session.GetString("userId");
-            
+
             return View(ViewBag);
         }
 
@@ -85,6 +85,7 @@ namespace CinemaLibraryWebApp.Controllers
             var movie = _db.Movies.Include(e => e.Genre).Include(e => e.Director).FirstOrDefault(x => x.Id == id);
             ViewBag.Movie = movie;
             ViewBag.Genres = _db.Genres;
+            ViewBag.UserId = HttpContext.Session.GetInt32("userId");
             
             return View(ViewBag);
         }

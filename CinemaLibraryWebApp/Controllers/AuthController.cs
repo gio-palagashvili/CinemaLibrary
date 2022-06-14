@@ -33,6 +33,8 @@ namespace CinemaLibraryWebApp.Controllers
         public IActionResult Index()
         {
             if (HttpContext.Session.GetInt32("userId") != null) return RedirectToAction("Index", "Home");
+            ViewBag.url = Request.Headers["Referer"];
+            
             return View();
         }
         [HttpGet]
@@ -55,12 +57,12 @@ namespace CinemaLibraryWebApp.Controllers
                 User user = new User { Mail = mail, Password = password, Role = "user" };
                 _db.Users.Add(user);
                 _db.SaveChanges();
-                
+
                 return RedirectToAction("Index");
         }
         
         [HttpPost]
-        public IActionResult Login(string mail, string password)
+        public IActionResult Login(string mail, string password,string url)
         {
             password = ComputeMd5Hash(password);
 
@@ -69,7 +71,7 @@ namespace CinemaLibraryWebApp.Controllers
             {
                 HttpContext.Session.SetInt32("userId",user.Id);
                 HttpContext.Session.SetString("userRole", user.Role);
-                return RedirectToAction("index", "Movie");
+                return Redirect(url);
             }
 
             return RedirectToAction("index", "Auth");

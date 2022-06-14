@@ -1,27 +1,29 @@
-﻿using CinemaLibraryWebApp.Models;
+﻿using CinemaLibraryWebApp.Data;
+using CinemaLibraryWebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace CinemaLibraryWebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _db;
+        public HomeController(ApplicationDbContext db)
         {
-            _logger = logger;
+            _db = db;
         }
-
         public IActionResult Index()
         {
-            return View();
+            ViewBag.userId = HttpContext.Session.GetInt32("userId");
+            return View(ViewBag);
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            ViewBag.userId = HttpContext.Session.GetInt32("userId");
+            return View(ViewBag);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

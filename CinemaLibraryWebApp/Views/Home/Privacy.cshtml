@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
+﻿@if (ViewBag.UserId != null)
+{
+    <script>
+        document.getElementById("login").innerHTML = "Log Out";
+        document.getElementById("login").href = "/Auth/LogOut";
+    </script>
 }
-<h1>@ViewData["Title"]</h1>
-
