@@ -67,8 +67,27 @@ namespace CinemaLibraryWebApp.Controllers
             return View(ViewBag);
         }
 
-        [HttpPost]
-        public IActionResult Delete(int id)
+
+        public IActionResult Add()
+        {
+            ViewBag.userRole = HttpContext.Session.GetString("userRole");
+            ViewBag.genres = _db.Genres;
+            
+            return View(ViewBag);
+        }
+        [HttpPost] public IActionResult Add(string Name, DateTime ReleaseDate, float IMDB, 
+            float RottenTomatoes, string Poster, int Genre, string Description)
+        {
+            Genre genre = _db.Genres.FirstOrDefault(x => x.Id == Genre);
+            var movie = new Movie {Description = Description,Poster = Poster,ReleaseDate = ReleaseDate,Name = Name,
+                IMDB = IMDB,RottenTomatoes = RottenTomatoes, Genre = genre};
+            
+            _db.Movies.Add(movie);
+            _db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+        [HttpPost] public IActionResult Delete(int id)
         {
             Movie movie = _db.Movies.Find(id);
             if (movie == null) return NotFound("error");
@@ -89,8 +108,7 @@ namespace CinemaLibraryWebApp.Controllers
             
             return View(ViewBag);
         }
-        [HttpPost]
-        public IActionResult Edit(int Id,string Name, DateTime ReleaseDate, float IMDB, 
+        [HttpPost] public IActionResult Edit(int Id,string Name, DateTime ReleaseDate, float IMDB, 
             float RottenTomatoes, string Poster, int Genre, string Description)
         {
             Genre genre = _db.Genres.FirstOrDefault(x => x.Id == Genre);

@@ -1,0 +1,91 @@
+﻿<style>
+.mainDiv{
+display: flex;
+}
+form:nth-child(1){
+width: 80%;
+}
+.inputMain{
+    padding: 4px;
+    margin-bottom: 1%;
+    width: 80%;
+    display: block;
+}
+img{
+width: 40%;
+height: 40%;
+} 
+.sd{
+width: 80%;
+margin-top: 1%;
+color: #fff;
+font-family: "Segoe UI",serif;
+font-weight: 400;
+border-radius: 2px;
+border: none;
+padding: 4px;
+background-color: #007bff;
+}
+.sd:hover{
+    background-color: #006ce0;
+}
+#posterInput{
+width: 60%;
+}
+#checkImage{
+width: 18%;
+height: 35px;
+color: #fff;
+font-family: "Segoe UI",serif;
+font-weight: 400;
+border-radius: 2px;
+border: none;
+margin-top: 0;
+margin-left: 1%;
+background-color: #007bff;
+}
+</style>
+<div class="mainDiv">
+    <form asp-controller="Movie" asp-action="Add">
+        <h3>Name</h3>
+        <input name="Name" style="margin-right: 2%" class="inputMain" required>
+
+        <h3>Release date </h3>
+        <input type="date" name="ReleaseDate" class="inputMain" required>
+
+        <h3>Rating</h3>
+        <input name="IMDB" class="inputMain" required>
+
+        <h3>RT %</h3>
+        <input name="RottenTomatoes" class="inputMain" required>
+
+        <h3>Poster</h3>
+        <div class="mainDiv">
+            <input name="Poster" class="inputMain" id="posterInput" required>
+            <input type="button" id="checkImage" value="Check" onclick="Check()"/>
+        </div>
+
+        <h3>Genre</h3>
+        <select name="Genre" class="inputMain" required>
+            @foreach (var genre in ViewBag.genres)
+            {
+                <option value="@genre.Id">@genre.Name</option>
+            }
+        </select>
+
+        <h3>Description</h3>
+        <textarea name="Description" class="inputMain" required></textarea>
+
+        <input type="submit" class="sd">
+    </form>
+    <img src="https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg" alt="picture" id="pic"/>
+</div>
+
+<script>
+    const Check = () =>{
+        let url = document.getElementById("posterInput").value;
+        if (url != null){
+            document.getElementById("pic").setAttribute("src", url);
+        }
+    }
+</script>
