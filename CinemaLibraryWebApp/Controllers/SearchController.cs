@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CinemaLibraryWebApp.Data;
 using CinemaLibraryWebApp.Models;
@@ -20,7 +21,9 @@ namespace CinemaLibraryWebApp.Controllers
             IEnumerable<Movie> movies = _db.Movies.Where(movie => movie.Name.Contains(text));
             IEnumerable<Director> directors = _db.Directors.Where(director => director.Name.Contains(text));
             IEnumerable<Actor> actors = _db.Actors.Where(director => director.Name.Contains(text));
-            SearchList list = new SearchList {Movies = movies.ToList(), Directors = directors.ToList(),Actors = actors.ToList()};
+            IQueryable<User> users = _db.Users.Where(x => x.Mail.Contains(text));
+            
+            SearchList list = new SearchList {Movies = movies.ToList(), Directors = directors.ToList(),Actors = actors.ToList(),Users = users.ToList()};
             
             return View(list);
         }

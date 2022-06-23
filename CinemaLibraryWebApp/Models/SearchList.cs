@@ -7,5 +7,6 @@ namespace CinemaLibraryWebApp.Models
         public List<Movie> Movies;
         public List<Actor> Actors;
         public List<Director> Directors;
+        public List<User> Users;
     }
 }

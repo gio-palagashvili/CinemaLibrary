@@ -1,0 +1,144 @@
+﻿<style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 70%;
+      height: 20%;
+    }
+    
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 5px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+    p{
+    width: 90%;
+    word-break: break-all;
+    }
+    .comment{
+    margin-top:2%;
+    width: 90%;
+    border: 1px solid black;
+    padding: 10px;
+    }
+    .delete{
+    color: #fff;
+    font-family: "Segoe UI",serif;
+    font-weight: 400;
+    border-radius: 2px;
+    border: none;
+    padding: 2px;
+    background-color: #dc3545;
+    width:10%;
+    }
+    .delete:hover{
+    background-color: #b3333f;
+    }
+    .time{
+    font-size: 11px;
+    }
+    .edit{
+    margin-top: 2%;
+    color: #fff;
+    font-family: "Segoe UI",serif;
+    font-weight: 400;
+    border-radius: 2px;
+    border: none;
+    padding: 2px;
+    background-color: #212425;
+    width: 10%;
+    }
+    .submitEdit{
+    color: #fff;
+        font-family: "Segoe UI",serif;
+        font-weight: 400;
+        border-radius: 2px;
+        margin-top: 2%;
+        border: none;
+        padding: 3px;
+        background-color: #007bff;
+        width: 10%;
+}
+</style>
+
+<table>
+    <tr>
+        @if (ViewBag.account.Role == "admin")
+        {
+            <th style="width: 120px;">User Id</th>
+        }
+        <th>Mail</th>
+        @if (ViewBag.account.Role == "admin")
+        {
+            <th style="width: 120px;">Hash</th>
+        }
+        <th>Role</th>
+    </tr>
+    <tr>
+        @if (ViewBag.account.Role == "admin")
+        {
+            <td>@ViewBag.account.Id</td>
+        }
+        <td>@ViewBag.account.Mail</td>
+        @if (ViewBag.account.Role == "admin")
+        {
+            <td>@ViewBag.account.Password</td>
+        }
+        <td>@ViewBag.account.Role</td>
+    </tr>
+</table>
+
+<h1>Comments by @ViewBag.account.Mail :</h1>
+
+@{
+    var z = 0;
+    var k = "tag";
+
+
+    foreach (var comment in ViewBag.comments)
+    {
+        z++;
+        <div class="comment">
+            <span class="time">@comment.CommentDate</span>
+
+            <h3>@comment.User.Mail : </h3>
+            <p id="@k@z">@comment.Text</p>
+
+            @if (ViewBag.userRole == "admin")
+            {
+                <form asp-controller="Comment" asp-action="Edit" style="display:none;" id="@z">
+                    <input type="text" name="text" value="@comment.Text">
+                    <input type="hidden" name="id" value="@comment.CommentId">
+                    <button type="submit" class="submitEdit">Submit</button><br>
+                </form>
+
+                <button type="button" class="delete" onclick="window.location.href='Comment/Delete/@comment.CommentId';">Delete</button>
+                <button type="button" class="edit" id="edit" onclick="Edit(@z)">Edit</button>
+            }
+        </div>
+    }
+}
+
+<script>
+    const Edit = (z) => {    
+        let form = document.getElementById(z);
+        let text = document.getElementById("tag"+z);
+        let edit = document.getElementById("edit");
+        
+        if (text.style.display !== "none"){
+        text.style.display = "none";
+        form.style.display = "inherit";
+        edit.innerText = "cancel";
+        }else{
+            edit.innerText = "Edit";
+         text.style.display = "inherit";
+         form.style.display = "none";
+        }
+    }
+    document.getElementById("login").innerHTML = "Log Out";
+    document.getElementById("login").href = "../../../Auth/LogOut";
+</script>

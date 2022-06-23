@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Admin\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\User\Index.cshtml" />
   </ItemGroup>
 
 </Project>

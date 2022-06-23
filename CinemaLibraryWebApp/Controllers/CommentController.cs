@@ -51,8 +51,9 @@ namespace CinemaLibraryWebApp.Controllers
             
             _db.Comments.Update(comment);
             _db.SaveChanges();
+            var z = Request.Headers["Referer"];
             
-            return Redirect("https://localhost:5001/movie/details/"+comment.Movie.Id);
+            return Redirect(z);
         }
     }
 }

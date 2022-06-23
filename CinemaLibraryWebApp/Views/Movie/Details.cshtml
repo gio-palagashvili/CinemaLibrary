@@ -161,7 +161,7 @@ else
         <div class="comment">
             <span class="time">@comment.CommentDate</span>
             
-            <h3>@comment.User.Mail : </h3>
+            <h3><a href="../../Personal/Account/@comment.User.Id" style="color: black">@comment.User.Mail</a> : </h3>
             <p id="@k@z">@comment.Text</p>
             
             @if (ViewBag.userRole == "admin")
@@ -196,10 +196,8 @@ else
 {
 <h1>No movie Found</h1>
 }
-@if (true)
-{
+
     <script>
-    
     const Edit = (z) => {    
         let form = document.getElementById(z);
         let text = document.getElementById("tag"+z);
@@ -216,5 +214,4 @@ else
         }
     }
     </script>
-}
 

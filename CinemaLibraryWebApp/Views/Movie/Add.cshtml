@@ -45,6 +45,12 @@ margin-left: 1%;
 background-color: #007bff;
 }
 </style>
+   @if (ViewBag.userRole != "admin")
+    {
+        <script>
+           window.location.href="../Auth";
+        </script>
+    }
 <div class="mainDiv">
     <form asp-controller="Movie" asp-action="Add">
         <h3>Name</h3>
@@ -80,6 +86,7 @@ background-color: #007bff;
     </form>
     <img src="https://thumbs.dreamstime.com/b/no-image-available-icon-flat-vector-no-image-available-icon-flat-vector-illustration-132482953.jpg" alt="picture" id="pic"/>
 </div>
+
 
 <script>
     const Check = () =>{
